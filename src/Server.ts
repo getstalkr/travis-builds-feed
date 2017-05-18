@@ -1,32 +1,38 @@
 import { IncomingMessage, ServerResponse } from "http";
 import micro, { json, send } from "micro";
-import { GithubClient } from "./Services/Github";
 import { PusherClient } from "./Services/Pusher";
 import { Event } from "./Models/Event/";
-import { Commit, User } from "./Models/Event/Github";
+import { Build, Commit } from "./Models/Event/Travis";
 
 export class Server {
 
     public static readonly PORT = 3000;
-    private ghClient: GithubClient;
     private pusherClient: PusherClient;
     private server: micro;
 
     constructor() {
-      this.ghClient = new GithubClient();
       this.pusherClient = new PusherClient();
       this.server = micro(
         async (req, res) => {
 
-          const { head_commit } = await json(req);
+          const {
+            number,
+            status,
+            status_message,
+            started_at,
+            finished_at,
+            author_name
+          } = await json(req);
 
-          const { id, tree_id, message, timestamp, committer } = head_commit;
-          const { name, username } = committer;
-          const avatarUrl = await this.ghClient.getAvatarUrl(username);
+          const {
+            branch,
+            commit,
+            message
+          } = await json(req);
 
           const event = new Event(
-            new User(name, avatarUrl),
-            new Commit(id, tree_id, message, timestamp),
+            new Build(number, status, status_message, started_at, finished_at, author_name),
+            new Commit(commit, branch, message),
           );
 
           this.pusherClient.publish(event)
