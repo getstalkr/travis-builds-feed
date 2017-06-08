@@ -32,7 +32,8 @@
     "axios": "^0.16.1",
     "micro": "^7.3.3",
     "pusher": "^1.5.1",
-    "source-map-support": "^0.4.9"
+    "source-map-support": "^0.4.9",
+    "urlencoded-body-parser": "^2.0.1"
   },
   "devDependencies": {
     "@types/chai": "^3.0.0",

@@ -3,6 +3,7 @@ import micro, { json, send } from "micro";
 import { PusherClient } from "./Services/Pusher";
 import { Event } from "./Models/Event/";
 import { Build, Commit } from "./Models/Event/Travis";
+import * as parse from "urlencoded-body-parser";
 
 export class Server {
 
@@ -15,6 +16,9 @@ export class Server {
       this.server = micro(
         async (req, res) => {
 
+          const rawData = await parse(req);
+          const decodedData = JSON.parse(decodeURIComponent(rawData.payload));
+
           const {
             number,
             status,
@@ -22,13 +26,13 @@ export class Server {
             started_at,
             finished_at,
             author_name
-          } = await json(req);
+          } = decodedData;
 
           const {
             branch,
             commit,
             message
-          } = await json(req);
+          } = decodedData;
 
           const event = new Event(
             new Build(number, status, status_message, started_at, finished_at, author_name),
