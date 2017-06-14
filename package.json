@@ -1,13 +1,23 @@
 {
-  "name": "@stalkr-io/github",
-  "version": "0.1.0",
-  "description": "Stalkr Github webhook.",
+  "name": "@getstalkr/travis-builds-feed",
+  "version": "1.0.0",
+  "description": "@getstalkr micro service which feeds our clients with Travis builds events.",
   "license": "MIT",
-  "repository": {},
-  "author": "matt <@ythecombinator>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getstalkr/travis-builds-feed"
+  },
+  "author": "Stalkr Foundation <@getstalkr>",
   "keywords": [
-    ""
+    "travis",
+    "infrastructure",
+    "devops",
+    "monitoring",
+    "stalkr-plugin"
   ],
+  "engines": {
+    "node": "8.0.0"
+  },
   "files": [
     "dist/"
   ],

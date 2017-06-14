@@ -72,7 +72,7 @@ Then you need to [create an account](https://dashboard.pusher.com/accounts/sign_
 1. Clone this repository:
 
     ```sh
-    git clone https://github.com/stalkr-io/travis-builds-feed
+    git clone https://github.com/getstalkr/travis-builds-feed
     ```
 
 1. Install all dependencies:
